@@ -1,5 +1,6 @@
 \documentclass{scrreprt}
 \usepackage{graphicx}
+\usepackage{subcaption}
 \usepackage{float}
 \usepackage{amsmath}
 
@@ -33,16 +34,18 @@ For each wave we can adjust the wave parameters like frequency, intital phase, a
 
 The model available in lab can produce atmost 2 signals, where each one of them can be independently controlled. There is also a numpad and a dial to manually adjust each parameter. 
 
-\section{TODO! What are V/div and Time/div in a Digital
+\section{What are V/div and Time/div in a Digital
 Storage Oscilloscope (DSO)? Why are they important?}
 
 \begin{figure}[h!]
         \centering
-        \includegraphics[width=0.8\linewidth]{figs/vdiv.png}  
+        \includegraphics[width=0.8\linewidth]{figs/vtdiv.png}  
         \label{fig:vdiv}
 \end{figure}
 
-They represent the scales of the time-domain graph used to visualize the waveform. V/div referes to Voltage/division, which is the y-axis scale. It helps us analyze the amplitude of the waveform. Time/div is the x-axis scale using which, we can infer the frequency of the waveform.
+They represent the scales of the time-domain graph used to visualize the waveform. V/div referes to Voltage/division, which is the y-axis scale. It helps us analyze the amplitude of the waveform. Time/div is the x-axis scale using which, we can infer the frequency of the waveform. \\
+In the above figure, the V/div is 2V and we can see that the waveform approximately occupies 2.5 divisions in the y-direction. It corresponds to the 5V peak-to-peak amplitude. Similarly, each wave cycle occupies 2.5 divisions in the x-direction, and Time/div is $400 s$. It corresponds to the time period of $1 ms$. 
+
 
 \section{Define phase difference between two
 sinusoidal signals. How can it be measured using time-domain analysis?}
@@ -66,7 +69,7 @@ We can verify the above result by looking at the AFG used to generate these sign
 \section{What is XY mode in a DSO? How is it
 different from time-domain mode?}
 
-XY mode is a useful tool which can be used to compare both the signals. Instead of the time-domain mode which shows the two waveforms as the function of time, the XY mode has one signal as a function of another. 
+XY mode is a useful tool which can be used to compare both the signals. Instead of the time-domain mode which shows the two waveforms as the function of time, the XY mode has one signal as a function of another. The input signal from channel-1 is the x-axis and the input signal from channel-2 is the y-axis. 
 
 \begin{figure}[H]
         \centering
@@ -77,18 +80,170 @@ XY mode is a useful tool which can be used to compare both the signals. Instead 
 The resulting shapes in the XY mode are called lissajous figures. Which can be useful to measure phase-difference and compare frequencies of two signals. 
 The time-domain mode can also be viewed as applying a sawtooth waveform in the X direction. 
 
-\section{TODO! - Draw and explain Lissajous figures for
+\section{Draw and explain Lissajous figures for
 (a) $0^\circ$ phase difference and (b) $90^\circ$ phase difference}
+
+\begin{figure}[H]
+        \begin{subfigure}{.5\textwidth}
+                \centering
+                \includegraphics[width=1\linewidth]{figs/linelis.png}  
+                \label{fig:linelis}
+        \end{subfigure}
+        \begin{subfigure}{.5\textwidth}
+                \centering
+                \includegraphics[width=1\linewidth]{figs/linelisafg.png}  
+                \label{fig:linelisafg}
+        \end{subfigure}
+\end{figure}
 
 The lissajous figures for $0^\circ$ phase difference is a bounded straight line, as we can see in the figure above. The slope is the ratio of the amplitudes.
 \begin{align}
-        m = \frac{A_1}{A_2}
+        m = \frac{A_2}{A_1}
 \end{align}
 
-The lissajous figures for $90^\circ$ phase difference is a circle/ellipse with axes along coordinate axes, as we can see in the figure above. The eccentricity of the ellipse depends on the ratio of the amplitudes.
+\begin{figure}[H]
+        \begin{subfigure}{.5\textwidth}
+                \centering
+                \includegraphics[width=1\linewidth]{figs/circlelis.png}  
+                \label{fig:circlelis}
+        \end{subfigure}
+        \begin{subfigure}{.5\textwidth}
+                \centering
+                \includegraphics[width=1\linewidth]{figs/circlelisafg.png}  
+                \label{fig:circlelisafg}
+        \end{subfigure}
+\end{figure}
+
+The lissajous figures for $90^\circ$ phase difference is a circle centered at origin if the amplitudes are equal, as we can see in the figure above.
+
+\begin{figure}[H]
+        \begin{subfigure}{.5\textwidth}
+                \centering
+                \includegraphics[width=1\linewidth]{figs/ellipselis.png}  
+                \label{fig:ellipselis}
+        \end{subfigure}
+        \begin{subfigure}{.5\textwidth}
+                \centering
+                \includegraphics[width=1\linewidth]{figs/ellipselisafg.png}  
+                \label{fig:ellipselisafg}
+        \end{subfigure}
+\end{figure}
+
+
+The lissajous figures for $90^\circ$ phase difference is an ellipse with axes along coordinate axes if the amplitudes are different, as we can see in the figure above. The eccentricity of the ellipse depends on the ratio of the amplitudes.
 \begin{align}
         e = \sqrt{1-(\frac{A_1}{A_2})^2}
 \end{align}
+
+\section{Explain how Lissajous figures are used to determine frequency ratio.}
+Assuming that the two signals have the same phase, there is a way to find the frequency ratio of two signals using lissajous figures. There are many cases\\
+\textbf{Case 1: Simple loops}
+\begin{figure}[H]
+        \begin{subfigure}{.5\textwidth}
+                \centering
+                \includegraphics[width=1\linewidth]{figs/21dso.png}  
+                \label{fig:ellipselis}
+        \end{subfigure}
+        \begin{subfigure}{.5\textwidth}
+                \centering
+                \includegraphics[width=1\linewidth]{figs/21afg.png}  
+                \label{fig:ellipselisafg}
+        \end{subfigure}
+\end{figure}
+        If the lissajous figure comprises only of simple loops like the figure above, then we can say that the frequency ratio is an even number. \\
+
+
+\textbf{Case 2: Simple open curve}
+\begin{figure}[H]
+        \begin{subfigure}{.5\textwidth}
+                \centering
+                \includegraphics[width=1\linewidth]{figs/31dso.png}  
+                \label{fig:ellipselis}
+        \end{subfigure}
+        \begin{subfigure}{.5\textwidth}
+                \centering
+                \includegraphics[width=1\linewidth]{figs/31afg.png}  
+                \label{fig:ellipselisafg}
+        \end{subfigure}
+\end{figure}
+        If the lissajous figure is a simple open curve, and the curve does not intersect itself at any point, then the number of times it crosses the co-ordinate axis is the frequency ratio.\\
+
+
+\textbf{Case 3: General closed curve with loops}
+\begin{figure}[H]
+        \begin{subfigure}{.5\textwidth}
+                \centering
+                \includegraphics[width=1\linewidth]{figs/32dso.png}  
+                \label{fig:ellipselis}
+        \end{subfigure}
+        \begin{subfigure}{.5\textwidth}
+                \centering
+                \includegraphics[width=1\linewidth]{figs/32afg.png}  
+                \label{fig:ellipselisafg}
+        \end{subfigure}
+\end{figure}
+        This can also be applied to the simple loops case. In this case, find the ratio of the number of loops in a direction parallel to the corresponding axis. We can also find it by imagining the rectangular edges around the lissajous figure. The ratio of the number of times the vertical edge touches the curve to the number of times the horizontal edge touches the curve is the required ratio.\\
+
+\textbf{Case 4: General open curve with loops}
+\begin{figure}[H]
+        \begin{subfigure}{.5\textwidth}
+                \centering
+                \includegraphics[width=1\linewidth]{figs/37dso.png}  
+                \label{fig:ellipselis}
+        \end{subfigure}
+        \begin{subfigure}{.5\textwidth}
+                \centering
+                \includegraphics[width=1\linewidth]{figs/37afg.png}  
+                \label{fig:ellipselisafg}
+        \end{subfigure}
+\end{figure}
+        This can also be applied to the simple open curve case. In this case, The ratio of the number of times the curve crosses the y-axis to the number of times the curve crosses the x-axis is the required ratio.\\
+
+\section{Mention two practical applications of lissajous figures}
+\begin{itemize}
+\item It can be used to find the frequency ratio of two signals, if all we know about them is that they have the same phase (i.e, 0 phase difference).
+\item It can be used to find the amplitude ratio of two signals, if all we know about them is that they have the same frequency and phase.
+\item It can be used in SHM.
+\end{itemize}
+
+\section{Explain different triggering modes available in a DSO (edge, level, pulse, etc.) How are triggers used to capture single-shots or non-repetitive events?}
+The trigger in a DSO is a tool to capture any particular event, such as a sudden rise (edge), a pulse of a particular width, a runt (a smaller/different pulse among a set of pulses).
+
+\begin{figure}[H]
+        \begin{subfigure}{.5\textwidth}
+                \centering
+                \includegraphics[width=1\linewidth]{figs/capture.png}  
+                \label{fig:ellipselis}
+        \end{subfigure}
+        \begin{subfigure}{.5\textwidth}
+                \centering
+                \includegraphics[width=1\linewidth]{figs/trigger.png}  
+                \label{fig:ellipselisafg}
+        \end{subfigure}
+\end{figure} 
+
+We use an AFG in burst mode to generate a set of pulses for the DSO to detect. The DSO, will then create a snapshot of the signal, the instant it detects the edge. 
+
+The different edge trigger options are shown in the figure below.
+\begin{figure}[H]
+        \centering
+        \includegraphics[width=0.8\linewidth]{figs/edgeoptions.png}  
+        \label{fig:phaseafg}
+\end{figure}
+
+The different pulse width trigger options are shown in the figure below.
+\begin{figure}[H]
+        \centering
+        \includegraphics[width=0.8\linewidth]{figs/pulsewidth.png}  
+        \label{fig:phaseafg}
+\end{figure}
+
+The different runt trigger options are shown in the figure below.
+\begin{figure}[H]
+        \centering
+        \includegraphics[width=0.8\linewidth]{figs/runtoptions.png}  
+        \label{fig:phaseafg}
+\end{figure}
 
 
 \end{document}
