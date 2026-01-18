@@ -15,7 +15,7 @@
 \section{Explain the basic functions of an Arbitrary
 Function Generator (AFG). What parameters can be controlled?}
 
-An arbitrary function generator can be used to generate any form of input signal. It can be used to control the wave shape. Different wave shapes come included such as square, ramp, sine, pulse and noise, and many other wave shapes. There is also an option to choose an arbitrary waveform, where we can geberate any waveform of our choice.
+An arbitrary function generator can be used to generate any form of input signal. It can be used to control the wave shape. Different wave shapes come included such as square, ramp, sine, pulse and noise, and many other wave shapes. There is also an option to choose an arbitrary waveform, where we can generate any waveform of our choice.
 
 \begin{figure}[h!]
         \centering
@@ -26,13 +26,13 @@ An arbitrary function generator can be used to generate any form of input signal
 For each wave we can adjust the wave parameters like frequency, intital phase, amplitude, offset.
 
 \begin{itemize}
-        \item \textbf{Frequency}: It is the number of wave cycles that passes a fixed point per second.Along with frequency, there is an option to change the time period (inverse of frequency).       
+        \item \textbf{Frequency}: It is the number of wave cycles that passes a fixed point per second. Along with frequency, there is an option to change the time period (inverse of frequency).       
         \item \textbf{Initial Phase}: We can adjust the initial phase of the signal. This is useful for creating a phase difference between 2 signals.
-        \item \textbf{Amplitude}: We can also adjust the amplitude of the waveform in terms of Vpp(Voltage peak-peak). In the model available in the lab, the maximum amplitude is 10 Vpp.
+        \item \textbf{Amplitude}: We can also adjust the amplitude of the waveform in terms of Vpp(Voltage peak-peak). In the model available in the lab, the maximum amplitude that we can set is 10 Vpp.
         \item \textbf{Offset}: We can also shift the waveform vertically using this option. 
 \end{itemize}
 
-The model available in lab can produce atmost 2 signals, where each one of them can be independently controlled. There is also a numpad and a dial to manually adjust each parameter. 
+The model available in lab can be used to produce atmost 2 signals, where each one of them can be independently controlled. There is also a numpad and a dial to manually adjust each parameter. 
 
 \section{What are V/div and Time/div in a Digital
 Storage Oscilloscope (DSO)? Why are they important?}
@@ -43,7 +43,7 @@ Storage Oscilloscope (DSO)? Why are they important?}
         \label{fig:vdiv}
 \end{figure}
 
-They represent the scales of the time-domain graph used to visualize the waveform. V/div referes to Voltage/division, which is the y-axis scale. It helps us analyze the amplitude of the waveform. Time/div is the x-axis scale using which, we can infer the frequency of the waveform. \\
+They represent the scales of the time-domain graph used to visualize the waveform. V/div refers to Voltage/division, which is the y-axis scale. It helps us analyze the amplitude of the waveform. Time/div is the x-axis scale using which, we can infer the frequency of the waveform. \\
 In the above figure, the V/div is 2V and we can see that the waveform approximately occupies 2.5 divisions in the y-direction. It corresponds to the 5V peak-to-peak amplitude. Similarly, each wave cycle occupies 2.5 divisions in the x-direction, and Time/div is $400 s$. It corresponds to the time period of $1 ms$. 
 
 
@@ -57,8 +57,13 @@ Phase difference between the two sinusoidal signals can be defined as the differ
         \label{fig:phasedso}
 \end{figure}
 
-We can find the phase difference of two signals with the same frequency by finding the peak-to-peak displacement in terms of phase. In the image above, the time period is 10 Time/div, and the time between two closest peaks is around 3.33 Time/div.\\ Hence in this case, $\Delta\phi = \frac{3.33}{10}\times2\pi = \frac{2\pi}{3}$
-We can verify the above result by looking at the AFG used to generate these signals.
+We can find the phase difference of two signals with the same frequency by finding the peak-to-peak displacement in terms of phase. In the image above, the time period is 10 div, and the time between two closest peaks is around 3.33 div.\\ Hence in this case, $\Delta\phi = \frac{3.33}{10}\times2\pi = \frac{2\pi}{3}.$
+We can verify the above result by looking at the AFG used to generate these signals. \\
+
+A more general formula for finding phase difference can be expressed as
+\begin{align}
+        \Delta \phi = \frac{\text{Time between two closest peaks}}{\text{Time Period}} \times 2\pi
+\end{align}
 
 \begin{figure}[H]
         \centering
@@ -98,6 +103,10 @@ The time-domain mode can also be viewed as applying a sawtooth waveform in the X
 
 The lissajous figures for $0^\circ$ phase difference is a bounded straight line, as we can see in the figure above. The slope is the ratio of the amplitudes.
 \begin{align}
+        x = A_1\sin(\omega t) \\
+        y = A_2\sin(\omega t) \\
+        \frac{x}{y} = \frac{A_1}{A_2} \\
+        y = \frac{A_2}{A_1}x \\
         m = \frac{A_2}{A_1}
 \end{align}
 
@@ -132,7 +141,11 @@ The lissajous figures for $90^\circ$ phase difference is a circle centered at or
 
 The lissajous figures for $90^\circ$ phase difference is an ellipse with axes along coordinate axes if the amplitudes are different, as we can see in the figure above. The eccentricity of the ellipse depends on the ratio of the amplitudes.
 \begin{align}
-        e = \sqrt{1-(\frac{A_1}{A_2})^2}
+        x = A_1\sin(\omega t) \\
+        y = A_2\sin(\omega t + \frac{\pi}{2})\\
+          = A_2\cos(\omega t)\\
+        (\frac{x}{A_1})^2 + (\frac{y}{A_2})^2 = 1 \\
+        e = \sqrt{1-(\frac{A_1}{A_2})^2}, \quad \text{if $A_1 < A_2$}
 \end{align}
 
 \section{Explain how Lissajous figures are used to determine frequency ratio.}
@@ -203,11 +216,17 @@ Assuming that the two signals have the same phase, there is a way to find the fr
 \begin{itemize}
 \item It can be used to find the frequency ratio of two signals, if all we know about them is that they have the same phase (i.e, 0 phase difference).
 \item It can be used to find the amplitude ratio of two signals, if all we know about them is that they have the same frequency and phase.
-\item It can be used in SHM.
+\item It can be used to visualize SHM in different directions.
 \end{itemize}
 
 \section{Explain different triggering modes available in a DSO (edge, level, pulse, etc.) How are triggers used to capture single-shots or non-repetitive events?}
-The trigger in a DSO is a tool to capture any particular event, such as a sudden rise (edge), a pulse of a particular width, a runt (a smaller/different pulse among a set of pulses).
+The trigger in a DSO is a tool to capture any particular event, such as
+
+\begin{itemize}
+\item A sudden rise (edge)
+\item A pulse of a particular width
+\item A runt (a smaller/different pulse among a set of pulses).
+\end{itemize}
 
 \begin{figure}[H]
         \begin{subfigure}{.5\textwidth}
@@ -231,6 +250,8 @@ The different edge trigger options are shown in the figure below.
         \label{fig:phaseafg}
 \end{figure}
 
+We can adjust parameters like the source of the signal, the type of edge (falling or rising edge), and the level (height of the edge).
+
 The different pulse width trigger options are shown in the figure below.
 \begin{figure}[H]
         \centering
@@ -238,12 +259,15 @@ The different pulse width trigger options are shown in the figure below.
         \label{fig:phaseafg}
 \end{figure}
 
+As we can see, we can adjust parameters like the source of the signal, the polarity of the pulse to be captured, the height of the pulse and the width of the pulse to be captured.
+
 The different runt trigger options are shown in the figure below.
 \begin{figure}[H]
         \centering
         \includegraphics[width=0.8\linewidth]{figs/runtoptions.png}  
         \label{fig:phaseafg}
 \end{figure}
+As we can see, we can adjust parameters to define what kind of runt to capture such as width, polarity and threshold.
 
 
 \end{document}
