@@ -3,10 +3,16 @@
 \usepackage{subcaption}
 \usepackage{float}
 \usepackage{amsmath}
+\usepackage{listings}
+\usepackage{color}
 
 \title{Learning AFG \& DSO using Lissajous Figures}
 \author{Jnanesh Sathisha Karmar \& Vivek Kumar}
-\date{January 2026}
+\date{January 19, 2026}
+
+\definecolor{lbcolor}{rgb}{0.96,0.96,0.863} 
+
+\lstset{basicstyle=\ttfamily, keywordstyle=\rmfamily\bfseries, backgroundcolor=\color{lbcolor}}
 
 \begin{document}
 
@@ -66,10 +72,37 @@ A more general formula for finding phase difference can be expressed as
 \end{align}
 
 \begin{figure}[H]
-        \centering
-        \includegraphics[width=0.8\linewidth]{figs/phaseafg.png}  
-        \label{fig:phaseafg}
+        \begin{subfigure}{.5\textwidth}
+                \centering
+                \includegraphics[width=1\linewidth]{figs/py1.png}  
+                \label{fig:py1}
+        \end{subfigure}
+        \begin{subfigure}{.5\textwidth}
+                \centering
+                \includegraphics[width=1\linewidth]{figs/phaseafg.png}  
+                \label{fig:phaseafgafg}
+        \end{subfigure}
 \end{figure}
+
+The python code to plot the above signal is given below.
+\begin{lstlisting}[language=Python,breaklines=True]
+import numpy as np
+import matplotlib.pyplot as plt
+
+t = np.linspace(-20*np.pi, 20*np.pi, 1000)
+x = 5*np.sin(t)
+y = 5*np.sin(t + 2*np.pi/3)
+
+plt.plot(t, x, label = 'v2=5*sin(t)', color='orange')
+plt.plot(t, y, label = 'v2=5*sin(t+2pi/3)', color='blue')
+plt.xlim(-24, 24)
+plt.ylim(-24, 24)
+plt.xlabel('Time')
+plt.ylabel('Voltage')
+plt.grid()
+plt.legend()
+plt.show()
+\end{lstlisting}
 
 \section{What is XY mode in a DSO? How is it
 different from time-domain mode?}
@@ -110,6 +143,34 @@ The lissajous figures for $0^\circ$ phase difference is a bounded straight line,
         m = \frac{A_2}{A_1}
 \end{align}
 
+The python plot for the above is given below.
+
+\begin{figure}[H]
+        \centering
+        \includegraphics[width=0.6\textwidth]{figs/py2.png}
+        \label{fig:py2}
+\end{figure}
+
+The python code used to generate the above plot is given below:
+
+\begin{lstlisting}[language=Python,breaklines=True]
+import numpy as np
+import matplotlib.pyplot as plt
+
+t = np.linspace(0, 2*np.pi, 1000)
+x = 5*np.sin(t)
+y = 10*np.sin(t)
+
+plt.plot(x, y, label = 'y=2*x', color='orange')
+plt.xlim(-12, 12)
+plt.ylim(-12, 12)
+plt.xlabel('X-axis')
+plt.ylabel('Y-axis')
+plt.grid()
+plt.legend()
+plt.show()
+\end{lstlisting}
+
 \begin{figure}[H]
         \begin{subfigure}{.5\textwidth}
                 \centering
@@ -148,8 +209,35 @@ The lissajous figures for $90^\circ$ phase difference is an ellipse with axes al
         e = \sqrt{1-(\frac{A_1}{A_2})^2}, \quad \text{if $A_1 < A_2$}
 \end{align}
 
+The plot for the above is given below.
+\begin{figure}[H]
+        \centering
+        \includegraphics[width=0.6\textwidth]{figs/py3.png}
+        \label{fig:py3}
+\end{figure}
+
+The python code for the above plot is given below.
+
+\begin{lstlisting}[language=Python,breaklines=True]
+import numpy as np
+import matplotlib.pyplot as plt
+
+t = np.linspace(0, 2*np.pi, 1000)
+x = 5*np.sin(t)
+y = 10*np.cos(t)
+
+plt.plot(x, y, label = '(x/5)^2+(y/10)^2=1', color='orange')
+plt.xlim(-12, 12)
+plt.ylim(-12, 12)
+plt.xlabel('X-axis')
+plt.ylabel('Y-axis')
+plt.grid()
+plt.legend()
+plt.show()
+\end{lstlisting}
+
 \section{Explain how Lissajous figures are used to determine frequency ratio.}
-Assuming that the two signals have the same phase, there is a way to find the frequency ratio of two signals using lissajous figures. There are many cases\\
+Assuming that the two signals are sinusoidal and have the same phase, there is a way to find the frequency ratio of two signals using lissajous figures. There are many cases:\\
 \textbf{Case 1: Simple loops}
 \begin{figure}[H]
         \begin{subfigure}{.5\textwidth}
@@ -164,6 +252,43 @@ Assuming that the two signals have the same phase, there is a way to find the fr
         \end{subfigure}
 \end{figure}
         If the lissajous figure comprises only of simple loops like the figure above, then we can say that the frequency ratio is an even number. \\
+
+        The frequency ratio would simply be the number of simple loops visible. If we define the frequency of the first signal to be $\mathbf{f_1}$ and the frequency of the second signal to be $\mathbf{f_2}$ and, let $\mathbf{n_y}$ be the number of simple loops along the y-direction and $\mathbf{n_x}$ be the number of simple loops along the x-direction, then.
+        \begin{align}
+                \mathbf{\frac{f_1}{f_2}} = 
+                \begin{cases} 
+                        n_y,  & \text{if the loops are along the y-direction} \\
+                        \frac{1}{n_x}, & \text{if the loops are along the x-direction} 
+                \end{cases}
+        \end{align}
+
+The python plot for the above is given below.
+
+\begin{figure}[H]
+        \centering
+        \includegraphics[width=0.6\textwidth]{figs/py4.png}
+        \label{fig:py4}
+\end{figure}
+
+The python code used to generate the above plot is given below:
+
+\begin{lstlisting}[language=Python,breaklines=True]
+import numpy as np
+import matplotlib.pyplot as plt
+
+t = np.linspace(0, 2*np.pi, 1000)
+x = 5*np.sin(2*t)
+y = 5*np.sin(t)
+
+plt.plot(x, y, label = 'x=5sin(2t),y=5sin(t)', color='orange')
+plt.xlim(-7, 7)
+plt.ylim(-7, 7)
+plt.xlabel('X-axis')
+plt.ylabel('Y-axis')
+plt.grid()
+plt.legend()
+plt.show()
+\end{lstlisting}
 
 
 \textbf{Case 2: Simple open curve}
@@ -180,6 +305,38 @@ Assuming that the two signals have the same phase, there is a way to find the fr
         \end{subfigure}
 \end{figure}
         If the lissajous figure is a simple open curve, and the curve does not intersect itself at any point, then the number of times it crosses the co-ordinate axis is the frequency ratio.\\
+$\mathbf{f_1}$ is the frequency of the first signal, and $\mathbf{f_2}$ is the frequency of the second signal, then
+        \begin{align}
+                \mathbf{\frac{f_1}{f_2}} = \frac{\text{Number of times curve crosses y-axis}}{\text{Number of times curve crosses x-axis}} 
+        \end{align}
+
+The python plot for the above is given below.
+
+\begin{figure}[H]
+        \centering
+        \includegraphics[width=0.6\textwidth]{figs/py5.png}
+        \label{fig:py5}
+\end{figure}
+
+The python code used to generate the above plot is given below:
+
+\begin{lstlisting}[language=Python, breaklines=True]
+import numpy as np
+import matplotlib.pyplot as plt
+
+t = np.linspace(0, 2*np.pi, 1000)
+x = 5*np.sin(3*t)
+y = 5*np.sin(t)
+
+plt.plot(x, y, label = 'x=5sin(3t),y=5sin(t)', color='orange')
+plt.xlim(-7, 7)
+plt.ylim(-7, 7)
+plt.xlabel('X-axis')
+plt.ylabel('Y-axis')
+plt.grid()
+plt.legend()
+plt.show()
+\end{lstlisting}
 
 
 \textbf{Case 3: General closed curve with loops}
@@ -197,6 +354,41 @@ Assuming that the two signals have the same phase, there is a way to find the fr
 \end{figure}
         This can also be applied to the simple loops case. In this case, find the ratio of the number of loops in a direction parallel to the corresponding axis. We can also find it by imagining the rectangular edges around the lissajous figure. The ratio of the number of times the vertical edge touches the curve to the number of times the horizontal edge touches the curve is the required ratio.\\
 
+        If we define the frequency of the first signal to be $\mathbf{f_1}$ and the frequency of the second signal to be $\mathbf{f_2}$, then
+        \begin{align}
+                \mathbf{\frac{f_1}{f_2}} = \frac{\text{Number of times curve touches tangent parallel to y-axis}}{\text{Number of times curve touches tangent parallel to x-axis}}
+        \end{align}
+
+The python plot for the above is given below.
+
+\begin{figure}[H]
+        \centering
+        \includegraphics[width=0.6\textwidth]{figs/py6.png}
+        \label{fig:py6}
+\end{figure}
+
+The python code used to generate the above plot is given below:
+
+\begin{lstlisting}[language=Python,breaklines=True]
+import numpy as np
+import matplotlib.pyplot as plt
+
+t = np.linspace(0, 2*np.pi, 1000)
+x = 5*np.sin(3*t)
+y = 5*np.sin(2*t)
+
+plt.plot(x, y, label = 'x=5sin(3t),y=5sin(2t)', color = 'orange')
+plt.xlim(-7, 7)
+plt.ylim(-7, 7)
+plt.xlabel('X-axis')
+plt.ylabel('Y-axis')
+plt.grid()
+plt.legend()
+plt.show()
+\end{lstlisting}
+
+
+
 \textbf{Case 4: General open curve with loops}
 \begin{figure}[H]
         \begin{subfigure}{.5\textwidth}
@@ -212,10 +404,46 @@ Assuming that the two signals have the same phase, there is a way to find the fr
 \end{figure}
         This can also be applied to the simple open curve case. In this case, The ratio of the number of times the curve crosses the y-axis to the number of times the curve crosses the x-axis is the required ratio.\\
 
+        If we define frequency of the first signal to be $\mathbf{f_1}$, and the frequency of the second signal to be $\mathbf{f_2}$.
+
+\begin{align}
+        \mathbf{\frac{f_1}{f_2}} = \frac{\text{Number of times curve crosses y-axis}}{\text{Number of times curve crosses x-axis}}
+\end{align}
+
+The python plot for the above is given below.
+
+\begin{figure}[H]
+        \centering
+        \includegraphics[width=0.6\textwidth]{figs/py7.png}
+        \label{fig:py7}
+\end{figure}
+
+The python code used to generate the above plot is given below:
+
+\begin{lstlisting}[language=Python,breaklines=True]
+import numpy as np
+import matplotlib.pyplot as plt
+
+t = np.linspace(0, 2*np.pi, 1000)
+x = 5*np.sin(3*t)
+y = 5*np.sin(7*t)
+
+plt.plot(x, y, label = 'x=5sin(3t),y=5sin(7t)', color='orange')
+plt.xlim(-7, 7)
+plt.ylim(-7, 7)
+plt.xlabel('X-axis')
+plt.ylabel('Y-axis')
+plt.grid()
+plt.legend()
+plt.show()
+\end{lstlisting}
+
+
+
 \section{Mention two practical applications of lissajous figures}
 \begin{itemize}
-\item It can be used to find the frequency ratio of two signals, if all we know about them is that they have the same phase (i.e, 0 phase difference).
-\item It can be used to find the amplitude ratio of two signals, if all we know about them is that they have the same frequency and phase.
+\item It can be used to find the frequency ratio of two sinusoidal signals, if all we know about them is that they have the same phase (i.e, 0 phase difference).
+\item It can be used to find the amplitude ratio of two sinusoidal signals, if all we know about them is that they have the same frequency and phase.
 \item It can be used to visualize SHM in different directions.
 \end{itemize}
 
