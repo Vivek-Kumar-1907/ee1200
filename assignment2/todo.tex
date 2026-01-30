@@ -112,3 +112,147 @@ V_C \approx V_s
 \]
 
 Capacitor charges almost completely during ON time and discharges exponentially during OFF time.
+
+
+THIS IS FOR THE 3RD PART 
+\section{Part C: Square-Wave Input (Transient and Steady-State)}
+\subsection{Case 1: $RC \gg T$}
+
+\[
+T \ll RC
+\]
+
+\[
+T \ll 0.82\,ms
+\]
+
+\subsubsection*{Hand Calculations}
+
+For capacitor charging:
+
+\begin{equation}
+V_C(t) = V_i + (V_f - V_i)\left(1 - e^{-t/RC}\right)
+\end{equation}
+
+Since $t \le \frac{T}{2} \ll RC$,
+
+\[
+\frac{t}{RC} \ll 1
+\]
+
+Using approximation:
+
+\[
+e^{-t/RC} \approx 1 - \frac{t}{RC}
+\]
+
+\[
+V_C(t) \approx V_i + (V_f - V_i)\frac{t}{RC}
+\]
+
+\subsubsection*{Inference}
+
+The capacitor voltage varies almost linearly with time.  
+Hence, the output waveform is approximately triangular.
+
+\[
+\boxed{\text{RC circuit behaves as an integrator}}
+\]
+
+THIS IS THE SECOND PART OF 3RD QUESTION
+\subsection{Case 2: $RC \approx T$}
+
+\[
+T \approx RC = 0.82\,ms
+\]
+
+\subsubsection*{Hand Calculations}
+
+During the charging interval:
+
+\begin{equation}
+V_C(t) = V_s\left(1 - e^{-t/RC}\right)
+\end{equation}
+
+At the end of half cycle:
+
+\[
+t = \frac{T}{2} \approx \frac{RC}{2}
+\]
+
+\[
+V_C = V_s\left(1 - e^{-0.5}\right)
+\]
+
+\[
+V_C \approx 0.393V_s
+\]
+
+During discharge:
+
+\begin{equation}
+V_C(t) = V_0 e^{-t/RC}
+\end{equation}
+
+At $t = \frac{T}{2}$:
+
+\[
+V_C = V_0 e^{-0.5} \approx 0.607V_0
+\]
+
+\subsubsection*{Inference}
+
+The capacitor partially charges and partially discharges in each cycle.  
+Both transient and steady-state components are present.
+
+\[
+\boxed{\text{Maximum transient behavior is observed}}
+\]
+
+THIS IS CASE THREE
+\subsection{Case 3: $RC \ll T$}
+
+\[
+T \gg RC
+\]
+
+\[
+T \gg 0.82\,ms
+\]
+
+\subsubsection*{Hand Calculations}
+
+During ON time:
+
+\[
+t = \frac{T}{2} \gg RC
+\]
+
+\[
+e^{-t/RC} \approx 0
+\]
+
+\[
+V_C \approx V_s
+\]
+
+During OFF time:
+
+\begin{equation}
+V_C(t) = V_s e^{-t/RC}
+\end{equation}
+
+For $t \gg RC$:
+
+\[
+V_C \approx 0
+\]
+
+\subsubsection*{Inference}
+
+The capacitor fully charges and discharges within each cycle.
+
+\[
+\boxed{\text{Output closely follows the input waveform}}
+\]
+
