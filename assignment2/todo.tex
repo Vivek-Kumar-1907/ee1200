@@ -126,6 +126,7 @@ T \ll RC
 T \ll 0.82\,ms
 \]
 
+
 \subsubsection*{Hand Calculations}
 
 For capacitor charging:
@@ -255,4 +256,45 @@ The capacitor fully charges and discharges within each cycle.
 \[
 \boxed{\text{Output closely follows the input waveform}}
 \]
+
+
+VERIFICATION USING TIME CONSTANT
+\subsubsection{Verification Using $2\tau$}
+
+The theoretical time constant of the RC circuit is:
+
+\[
+\tau = RC = 820 \times 1\times10^{-6} = 0.82\,ms
+\]
+
+Hence,
+
+\[
+2\tau = 2 \times 0.82 = 1.64\,ms
+\]
+
+For a step input, the capacitor charging equation is:
+
+\[
+V_C(t) = V_s\left(1 - e^{-t/\tau}\right)
+\]
+
+At \(t = 2\tau\):
+
+\[
+V_C(2\tau) = V_s\left(1 - e^{-2}\right)
+\]
+
+\[
+V_C(2\tau) = V_s(1 - 0.135)
+\]
+
+\[
+\boxed{V_C(2\tau) \approx 0.865\,V_s}
+\]
+
+From the experimental waveform, the capacitor voltage at approximately
+\(t = 1.64\,ms\) was observed to be close to \(86.5\%\) of the final value.
+
+Thus, the experimental result agrees well with the theoretical prediction, verifying the step response of the RC circuit.
 
