@@ -7,7 +7,7 @@
 \usepackage{color}
 
 \title{Learning AFG \& DSO using Lissajous Figures}
-\author{Jnanesh Sathisha Karmar \& Vivek Kumar}
+\author{Jnanesh Sathisha Karmar - EE25BTECH11029 \\ Vivek Kumar - EE25BTECH11062}
 \date{January 19, 2026}
 
 \definecolor{lbcolor}{rgb}{0.96,0.96,0.863} 
@@ -45,12 +45,13 @@ Storage Oscilloscope (DSO)? Why are they important?}
 
 \begin{figure}[h!]
         \centering
-        \includegraphics[width=0.8\linewidth]{figs/vtdiv.png}  
+        \includegraphics[width=0.8\linewidth]{figs/vtdiv.png} 
+        \caption{Example figure for V/div and Time/div}
         \label{fig:vdiv}
 \end{figure}
 
 They represent the scales of the time-domain graph used to visualize the waveform. V/div refers to Voltage/division, which is the y-axis scale. It helps us analyze the amplitude of the waveform. Time/div is the x-axis scale using which, we can infer the frequency of the waveform. \\
-In the above figure, the V/div is 2V and we can see that the waveform approximately occupies 2.5 divisions in the y-direction. It corresponds to the 5V peak-to-peak amplitude. Similarly, each wave cycle occupies 2.5 divisions in the x-direction, and Time/div is $400 s$. It corresponds to the time period of $1 ms$. 
+In  Figure~\ref{fig:vdiv}, the V/div is 2V and we can see that the waveform approximately occupies 2.5 divisions in the y-direction. It corresponds to the 5V peak-to-peak amplitude. Similarly, each wave cycle occupies 2.5 divisions in the x-direction, and Time/div is $400 s$. It corresponds to the time period of $1 ms$. 
 
 
 \section{Define phase difference between two
@@ -60,10 +61,11 @@ Phase difference between the two sinusoidal signals can be defined as the differ
 \begin{figure}[H]
         \centering
         \includegraphics[width=0.8\linewidth]{figs/phasedso.png}  
+        \caption{Finding phase difference using DSO}
         \label{fig:phasedso}
 \end{figure}
 
-We can find the phase difference of two signals with the same frequency by finding the peak-to-peak displacement in terms of phase. In the image above, the time period is 10 div, and the time between two closest peaks is around 3.33 div.\\ Hence in this case, $\Delta\phi = \frac{3.33}{10}\times2\pi = \frac{2\pi}{3}.$
+We can find the phase difference of two signals with the same frequency by finding the peak-to-peak displacement in terms of phase. In Figure~\ref{fig:phasedso}, the time period is 10 div, and the time between two closest peaks is around 3.33 div.\\ Hence in this case, $\Delta\phi = \frac{3.33}{10}\times2\pi = \frac{2\pi}{3}.$
 We can verify the above result by looking at the AFG used to generate these signals. \\
 
 A more general formula for finding phase difference can be expressed as
@@ -122,9 +124,10 @@ The time-domain mode can also be viewed as applying a sawtooth waveform in the X
 (a) $0^\circ$ phase difference and (b) $90^\circ$ phase difference}
 
 \begin{figure}[H]
-        \begin{subfigure}{.5\textwidth}
+        \begin{subfigure}{.6\textwidth}
                 \centering
                 \includegraphics[width=1\linewidth]{figs/linelis.png}  
+                \caption{Straight line for $0^\circ$ phase difference}
                 \label{fig:linelis}
         \end{subfigure}
         \begin{subfigure}{.5\textwidth}
@@ -134,7 +137,7 @@ The time-domain mode can also be viewed as applying a sawtooth waveform in the X
         \end{subfigure}
 \end{figure}
 
-The lissajous figures for $0^\circ$ phase difference is a bounded straight line, as we can see in the figure above. The slope is the ratio of the amplitudes.
+The lissajous figures for $0^\circ$ phase difference is a bounded straight line, as we can see in Figure~\ref{fig:linelis}. The slope is the ratio of the amplitudes.
 \begin{align}
         x = A_1\sin(\omega t) \\
         y = A_2\sin(\omega t) \\
@@ -175,6 +178,7 @@ plt.show()
         \begin{subfigure}{.5\textwidth}
                 \centering
                 \includegraphics[width=1\linewidth]{figs/circlelis.png}  
+                \caption{Lissajous figure for $90^\circ$ phase difference}
                 \label{fig:circlelis}
         \end{subfigure}
         \begin{subfigure}{.5\textwidth}
@@ -184,7 +188,36 @@ plt.show()
         \end{subfigure}
 \end{figure}
 
-The lissajous figures for $90^\circ$ phase difference is a circle centered at origin if the amplitudes are equal, as we can see in the figure above.
+The lissajous figures for $90^\circ$ phase difference is a circle centered at origin if the amplitudes are equal, as we can see in figure\ref{fig:circlelis}.
+
+The plot for the above is given below.
+\begin{figure}[H]
+        \centering
+        \includegraphics[width=0.6\textwidth]{figs/py8.png}
+        \label{fig:py8}
+\end{figure}
+
+The python code for the above plot is given below.
+
+\begin{lstlisting}[language=Python,breaklines=True]
+import numpy as np
+import matplotlib.pyplot as plt
+
+t = np.linspace(0, 2*np.pi, 1000)
+x = 5*np.sin(t)
+y = 5*np.cos(t)
+
+plt.plot(x, y, label = 'x^2+y^2=25', color='orange')
+plt.xlim(-10, 10)
+plt.ylim(-8, 8)
+plt.xlabel('X-axis')
+plt.ylabel('Y-axis')
+plt.grid()
+plt.legend()
+plt.show()
+\end{lstlisting}
+
+
 
 \begin{figure}[H]
         \begin{subfigure}{.5\textwidth}
@@ -243,12 +276,12 @@ Assuming that the two signals are sinusoidal and have the same phase, there is a
         \begin{subfigure}{.5\textwidth}
                 \centering
                 \includegraphics[width=1\linewidth]{figs/21dso.png}  
-                \label{fig:ellipselis}
+                \label{fig:simpleloop}
         \end{subfigure}
         \begin{subfigure}{.5\textwidth}
                 \centering
                 \includegraphics[width=1\linewidth]{figs/21afg.png}  
-                \label{fig:ellipselisafg}
+                \label{fig:simpleloopafg}
         \end{subfigure}
 \end{figure}
         If the lissajous figure comprises only of simple loops like the figure above, then we can say that the frequency ratio is an even number. \\
@@ -296,12 +329,12 @@ plt.show()
         \begin{subfigure}{.5\textwidth}
                 \centering
                 \includegraphics[width=1\linewidth]{figs/31dso.png}  
-                \label{fig:ellipselis}
+                \label{fig:simpleopen}
         \end{subfigure}
         \begin{subfigure}{.5\textwidth}
                 \centering
                 \includegraphics[width=1\linewidth]{figs/31afg.png}  
-                \label{fig:ellipselisafg}
+                \label{fig:simpleopenafg}
         \end{subfigure}
 \end{figure}
         If the lissajous figure is a simple open curve, and the curve does not intersect itself at any point, then the number of times it crosses the co-ordinate axis is the frequency ratio.\\
@@ -344,12 +377,12 @@ plt.show()
         \begin{subfigure}{.5\textwidth}
                 \centering
                 \includegraphics[width=1\linewidth]{figs/32dso.png}  
-                \label{fig:ellipselis}
+                \label{fig:closedcurve}
         \end{subfigure}
         \begin{subfigure}{.5\textwidth}
                 \centering
                 \includegraphics[width=1\linewidth]{figs/32afg.png}  
-                \label{fig:ellipselisafg}
+                \label{fig:closedcurveafg}
         \end{subfigure}
 \end{figure}
         This can also be applied to the simple loops case. In this case, find the ratio of the number of loops in a direction parallel to the corresponding axis. We can also find it by imagining the rectangular edges around the lissajous figure. The ratio of the number of times the vertical edge touches the curve to the number of times the horizontal edge touches the curve is the required ratio.\\
@@ -394,12 +427,12 @@ plt.show()
         \begin{subfigure}{.5\textwidth}
                 \centering
                 \includegraphics[width=1\linewidth]{figs/37dso.png}  
-                \label{fig:ellipselis}
+                \label{fig:genopencurve}
         \end{subfigure}
         \begin{subfigure}{.5\textwidth}
                 \centering
                 \includegraphics[width=1\linewidth]{figs/37afg.png}  
-                \label{fig:ellipselisafg}
+                \label{fig:genopencurveafg}
         \end{subfigure}
 \end{figure}
         This can also be applied to the simple open curve case. In this case, The ratio of the number of times the curve crosses the y-axis to the number of times the curve crosses the x-axis is the required ratio.\\
