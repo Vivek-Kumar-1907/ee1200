@@ -7,6 +7,9 @@
 \usepackage{color}
 \usepackage{tikz}
 \usepackage{circuitikz}
+\usepackage{url}
+\usepackage{xurl}
+\usepackage{hyperref}
 
 \title{RC Circuit Response to \\ Step, Pulse, and Square Inputs}
 \author{Jnanesh Sathisha Karmar - EE25BTECH11029 \\ Vivek Kumar - EE25BTECH11062}
@@ -57,7 +60,15 @@ CH2 scale: $2.00\,\text{V/div}$
 
 Time scale: $400\,\mu s/\text{division}$
 
-\subsection{Theoretical response}
+\subsubsection{Simulation}
+Following image is the simulation of the response of the RC circuit to the input waveform
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{simulations/step1.png}
+    \label{fig:step1}
+\end{figure}
+
+\subsubsection{Theoretical response}
 
 For a step input voltage \quad  $V_s(T):$ \quad $V_C(t) = V_s\left(1 - e^{-t/RC}\right)$
 
@@ -81,103 +92,187 @@ t \approx 800 \mu s
 \end{align}
 This aligns with the actual value of resistances and capacitances we took. The theoretical value of t is $t = 820 \mu s$. The error is less than 3\%.
 
-\subsubsection*{Verification - Hand Calculation}
-When the input is removed: \quad $V_C(t) = V_0 e^{-t/RC} $ \\
-Substituting $RC = 0.82\,ms$:
-\begin{equation}
-V_C(t) = V_0 e^{-t/0.82ms}
-\end{equation}
-At $t = \tau$:
-\begin{align}
-V_C = 0.368V_0
-\end{align}
-At $t = 5\tau = 4.1\,ms$, the capacitor is almost fully discharged.
-
-\subsubsection{Verification Using $2\tau$}
-
-The theoretical time constant of the RC circuit is:
-
-\[
-\tau = RC = 820 \times 1\times10^{-6} = 0.82\,ms
-\]
-
-Hence,
-
-\[
-2\tau = 2 \times 0.82 = 1.64\,ms
-\]
+\subsubsection{Verification at $t = 2\tau$}
 
 For a step input, the capacitor charging equation is:
 
-\[
+\begin{align}
 V_C(t) = V_s\left(1 - e^{-t/\tau}\right)
-\]
+\end{align}
 
-At \(t = 2\tau\):
+At $t = 2\tau$:
 
-\[
-V_C(2\tau) = V_s\left(1 - e^{-2}\right)
-\]
+\begin{align}
+V_C(2\tau) = V_s\left(1 - e^{-2}\right)\\
+V_C(2\tau) = V_s(1 - 0.135) \\
+V_C(2\tau) \approx 0.865\,V_s = 0.865 \times 5V\\
+\boxed{V_C(2\tau) \approx 4.325V}
+\end{align}
 
-\[
-V_C(2\tau) = V_s(1 - 0.135)
-\]
+From the experimental waveform, the capacitor voltage at
+$t = 2\tau  = 1.64\,ms$ (around 4 divisions in time scale) is observed to be close to $4.2V$, which is found to be $97.2\%$ of the theoretical value.
 
-\[
-\boxed{V_C(2\tau) \approx 0.865\,V_s}
-\]
+Thus, the experimental result agrees well with the theoretical prediction, verifying the step response of the RC circuit.
 
-From the experimental waveform, the capacitor voltage at approximately
-\(t = 1.64\,ms\) was observed to be close to \(86.5\%\) of the final value.
+\subsection{Discharging Response}
+\subsubsection{Signal Information}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{figs/StepSignal_discharging.jpeg}
+    \label{fig:dso-stepsignal(discharging)}
+\end{figure}
+
+
+\subsubsection{Simulation}
+Following image is the simulation of the response of the RC circuit to the input waveform
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{simulations/step2.png}
+    \label{fig:step2}
+\end{figure}
+
+When the input is removed: \quad $V_C(t) = V_0 e^{-t/RC} $ \\
+At $t = \tau$:
+\begin{align}
+V_C = 0.368V_0 = 0.368 \times 5 V \\
+= 1.84V
+\end{align}
+
+From the experimental waveform, the capacitor voltage at
+$t = \tau  = 0.82\,ms$ (around 2 divisions in time scale) is observed to be close to $1.8V$, which is found to be $97.82\%$ of the theoretical value.
 
 Thus, the experimental result agrees well with the theoretical prediction, verifying the step response of the RC circuit.
 
 
+
 \section{Pulse Input (Single Event)}
 
-\subsection{Short pulse ($T \ll RC$)}
+\subsection{Pulse ($T = 200\mu s$)}
 \subsubsection{Signal Information}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{figs/Pulse1.jpeg}
+    \label{fig:Pulse1}
+\end{figure}
+\subsubsection{Simulation}
+Following image is the simulation of the response of the RC circuit to the input waveform
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{simulations/pulse1.png}
+    \label{fig:pulse1}
+\end{figure}
 \subsubsection{Hand Calculation}
-\begin{align}
-T_p \ll 820\mu s
-\end{align}
 Peak capacitor voltage:
 \begin{equation}
         V_{max} = V_s\left(1 - e^{-T/RC}\right) \label{eq:vmax}
 \end{equation}
-For $T \ll RC$:
+For $T = 200\mu s$:
 \begin{align}
-V_{max} \approx \frac{T}{RC}V_s
+    V_{max} = 5\times(1-e^{-200/820}) V \\
+    V_{max} = 1.08V
 \end{align}
 
-\subsection{ Pulse width ($T \approx RC$)}
+\subsection{ Pulse width ($T = 500\mu s$)}
 \subsubsection{Signal Information}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{figs/Pulse2.jpeg}
+    \label{fig:Pulse2}
+\end{figure}
+\subsubsection{Simulation}
+Following image is the simulation of the response of the RC circuit to the input waveform
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{simulations/pulse2.png}
+    \label{fig:pulse2}
+\end{figure}
+\subsubsection{Hand Calculation}
+From \eqref{eq:vmax}, it follows that
+For $T = 500\mu s$:
+\begin{align}
+    V_{max} = 5\times(1-e^{-500/820}) V \\
+    V_{max} = 2.28V
+\end{align}
+
+
+\subsection{Pulse $T = 800 \mu s$}
+\subsubsection{Signal Information}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{figs/Pulse3.jpeg}
+    \label{fig:Pulse3}
+\end{figure}
+\subsubsection{Simulation}
+Following image is the simulation of the response of the RC circuit to the input waveform
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{simulations/pulse3.png}
+    \label{fig:pulse3}
+\end{figure}
 \subsubsection{Hand Calculation}
 From \eqref{eq:vmax}, it follows that
 \begin{align}
-T \approx 820\mu s \\
-V_{max} = V_s(1 - e^{-1}) = 0.632V_s
+    V_{max} = 5\times(1-e^{-800/820}) V \\
+    V_{max} = 3.12V
 \end{align}
 
-\subsection{Long Pulse $T \gg RC$}
+\subsection{Pulse ($T = 1ms$)}
 \subsubsection{Signal Information}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{figs/Pulse4.jpeg}
+    \label{fig:Pulse4}
+\end{figure}
+\subsubsection{Simulation}
+Following image is the simulation of the response of the RC circuit to the input waveform
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{simulations/pulse4.png}
+    \label{fig:pulse4}
+\end{figure}
 \subsubsection{Hand Calculation}
 From \eqref{eq:vmax}, it follows that
 \begin{align}
-T \gg 820\mu s \\
-V_{max} \approx V_s
+    V_{max} = 5\times(1-e^{-1000/820}) V \\
+    V_{max} = 3.52V
 \end{align}
 
-We notice that, the capacitor charges almost completely during ON time and discharges exponentially during OFF time.
+
 
 \section{Square-Wave Input (Transient and Steady-State)}
 \subsection{$RC \gg T$}
+\subsubsection*{Signal Information}
 
-\begin{align}
-T \ll RC \\
-T \ll 0.82\,ms
-\end{align}
-
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{figs/square1steady.jpeg}
+    \label{fig:dso-square-steady_response}
+    \caption{Steady-State Response}
+\end{figure}
+\subsubsection{Simulation}
+Following image is the simulation of the response of the RC circuit to the input waveform
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{simulations/sq1_steady.png}
+    \label{fig:step1}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{figs/square1tran.jpeg}
+    \label{fig:dso-square-transient_response}
+    \caption{Transient Response}
+\end{figure}
+\subsubsection{Simulation}
+Following image is the simulation of the response of the RC circuit to the input waveform
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{simulations/sq1_trans.png}
+    \label{fig:sq1tran}
+\end{figure}
 \subsubsection*{Hand Calculations}
 
 For capacitor charging:
@@ -188,36 +283,63 @@ V_C(t) = V_i + (V_f - V_i)\left(1 - e^{-t/RC}\right)
 
 Since $t \le \frac{T}{2} \ll RC$,
 
-\[
+\begin{align}
 \frac{t}{RC} \ll 1
-\]
+\end{align}
 
 Using approximation:
 
-\[
+\begin{align}
 e^{-t/RC} \approx 1 - \frac{t}{RC}
-\]
+\end{align}
 
-\[
+\begin{align}
 V_C(t) \approx V_i + (V_f - V_i)\frac{t}{RC}
-\]
+\end{align}
 
 \subsubsection*{Inference}
 
 The capacitor voltage varies almost linearly with time.  
 Hence, the output waveform is approximately triangular.
 
-\[
+\begin{align}
 \boxed{\text{RC circuit behaves as an integrator}}
-\]
+\end{align}
 
 \subsection{Case 2: $RC \approx T$}
+    \subsubsection{Signal Information}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{figs/square2steady.jpeg}
+    \label{fig:dso-square-steady_response}
+    \caption{Steady-State Response}
+\end{figure}
+\subsubsection{Simulation}
+Following image is the simulation of the response of the RC circuit to the input waveform
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{simulations/sq2_steady.png}
+    \label{fig:sqsteady2}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{figs/square2tran.jpeg}
+    \label{fig:dso-square-transient_response}
+    \caption{Transient Response}
+\end{figure}
+\subsubsection{Simulation}
+Following image is the simulation of the response of the RC circuit to the input waveform
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{simulations/sq2_trans.png}
+    \label{fig:tran2}
+\end{figure}
 
-\[
+\begin{align}
 T \approx RC = 0.82\,ms
-\]
+\end{align}
 
-\subsubsection*{Hand Calculations}
+\subsubsection{Hand Calculations}
 
 During the charging interval:
 
@@ -227,17 +349,17 @@ V_C(t) = V_s\left(1 - e^{-t/RC}\right)
 
 At the end of half cycle:
 
-\[
+\begin{align}
 t = \frac{T}{2} \approx \frac{RC}{2}
-\]
+\end{align}
 
-\[
+\begin{align}
 V_C = V_s\left(1 - e^{-0.5}\right)
-\]
+\end{align}
 
-\[
+\begin{align}
 V_C \approx 0.393V_s
-\]
+\end{align}
 
 During discharge:
 
@@ -247,45 +369,71 @@ V_C(t) = V_0 e^{-t/RC}
 
 At $t = \frac{T}{2}$:
 
-\[
+\begin{align}
 V_C = V_0 e^{-0.5} \approx 0.607V_0
-\]
+\end{align}
 
 \subsubsection*{Inference}
 
 The capacitor partially charges and partially discharges in each cycle.  
 Both transient and steady-state components are present.
 
-\[
+\begin{align}
 \boxed{\text{Maximum transient behavior is observed}}
-\]
+\end{align}
 
-THIS IS CASE THREE
 \subsection{Case 3: $RC \ll T$}
+\subsubsection{Signal Information}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{figs/square3steady.jpeg}
+    \label{fig:dso-square-steady_response}
+    \caption{Steady-State Response}
+\end{figure}
+\subsubsection{Simulation}
+Following image is the simulation of the response of the RC circuit to the input waveform
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{simulations/sq3_steady.png}
+    \label{fig:sqsteady3}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{figs/square3tran.jpeg}
+    \label{fig:dso-square-transient_response}
+    \caption{Transient Response}
+\end{figure}
+\subsubsection{Simulation}
+Following image is the simulation of the response of the RC circuit to the input waveform
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{simulations/sq3_trans.png}
+    \label{fig:transient3}
+\end{figure}
 
-\[
+\begin{align}
 T \gg RC
-\]
+\end{align}
 
-\[
+\begin{align}
 T \gg 0.82\,ms
-\]
+\end{align}
 
-\subsubsection*{Hand Calculations}
+\subsubsection{Hand Calculations}
 
 During ON time:
 
-\[
+\begin{align}
 t = \frac{T}{2} \gg RC
-\]
+\end{align}
 
-\[
+\begin{align}
 e^{-t/RC} \approx 0
-\]
+\end{align}
 
-\[
+\begin{align}
 V_C \approx V_s
-\]
+\end{align}
 
 During OFF time:
 
@@ -295,17 +443,23 @@ V_C(t) = V_s e^{-t/RC}
 
 For $t \gg RC$:
 
-\[
+\begin{align}
 V_C \approx 0
-\]
+\end{align}
 
 \subsubsection*{Inference}
 
 The capacitor fully charges and discharges within each cycle.
 
-\[
+\begin{align}
 \boxed{\text{Output closely follows the input waveform}}
-\]
+\end{align}
+
+\section{Conclusion}
+All our experimental results are nearly accurate and within an error of $5\%$ of theoretical results. The simulations have been generated using NGSpice and the code for generating all the simulations are available in our Github repository. The link for the repository is here
+
+
+\fbox{\parbox{\linewidth}{\url{https://github.com/Vivek-Kumar-1907/ee1200/tree/main/assignment2/simulations/}}}
 
 
 \end{document}

@@ -1,0 +1,15 @@
+Square Wave 82ms (Steady)
+
+Vsource 2 0 PULSE(0 5 0 1n 1n 41m 82m)
+R1 2 1 820
+C1 1 0 1u
+
+* Simulate to 500ms
+.tran 200u 500ms
+
+.control
+    run
+    wrdata sq3_steady.txt v(1) v(2)
+.endc
+
+.end

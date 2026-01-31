@@ -1,0 +1,14 @@
+1ms Pulse Signal
+
+Vsource 2 0 PULSE(0 5 0.1m 1n 1n 4.1m 20m)
+R1 2 1 820
+C1 1 0 1u
+
+.tran 100u 10ms
+
+.control
+    run
+    wrdata pulse4_data.txt v(1) v(2)
+.endc
+
+.end

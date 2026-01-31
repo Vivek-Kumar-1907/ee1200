@@ -1,0 +1,15 @@
+Square Wave 8.2us (Steady)
+
+Vsource 2 0 PULSE(0 5 0 1n 1n 4.1u 8.2u)
+R1 2 1 820
+C1 1 0 1u
+
+* Simulate to 5ms to allow settling
+.tran 0.2u 5ms
+
+.control
+    run
+    wrdata sq1_steady.txt v(1) v(2)
+.endc
+
+.end
