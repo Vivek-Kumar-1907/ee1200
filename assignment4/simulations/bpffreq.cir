@@ -1,0 +1,13 @@
+Band pass frequency response
+
+V1 vin 0 AC 5 
+R1 1 vin 18k
+C1 1 0 561p
+C2 1 2 561p
+R2 2 0 18k
+
+.control
+    ac dec 100 1000 10e5
+    gnuplot bpffreq db(v(2))
+.endc
+

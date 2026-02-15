@@ -1,0 +1,15 @@
+Square T nearly RC
+
+Vsource 1 0 PULSE(0 5 0 1n 1n 410n 820n)
+R1 1 2 820
+C1 2 0 1u
+
+.tran 0.1us 5us
+
+.control
+    run
+    display
+    gnuplot step_graph v(1) v(2)
+.endc
+
+.end

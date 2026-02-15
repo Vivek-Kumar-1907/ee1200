@@ -1,0 +1,15 @@
+Step Signal
+
+Vsource 2 0 PULSE(0 5 0.1m 1n 1n 10 10)
+R1 1 0 820
+C1 2 1 1u
+
+.tran 0.1ms 5ms
+
+.control
+    run
+    display
+    gnuplot step1 v(1) v(2)
+.endc
+
+.end

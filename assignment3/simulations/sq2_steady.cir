@@ -1,0 +1,14 @@
+Square Wave 820us (Steady)
+
+Vsource 2 0 PULSE(0 5 0 1n 1n 410u 820u)
+R1 1 0 820
+C1 2 1 1u
+
+.tran 1u 6ms
+
+.control
+    run
+    wrdata sq2_steady.txt v(1) v(2)
+.endc
+
+.end

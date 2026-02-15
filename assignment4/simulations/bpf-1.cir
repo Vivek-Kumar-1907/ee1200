@@ -1,0 +1,13 @@
+Band pass filter design
+
+V1 vin 0 PULSE(-2.5, 2.5, 0, 1n, 1n, 0.166m, 0.333m)
+R1 1 vin 18k
+C1 1 0 561p
+C2 1 2 561p
+R2 2 0 18k
+
+.control
+    tran 10u 1 0.9988
+    gnuplot bpf-1 vin 5*v(2)
+.endc
+

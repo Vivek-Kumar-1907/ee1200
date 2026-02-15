@@ -1,0 +1,14 @@
+Square Wave 8.2ms (Transient)
+
+Vsource 2 0 PULSE(0 5 0 1n 1n 4.1m 8.2m)
+R1 1 0 820
+C1 2 1 1u
+
+.tran 10u 25m
+
+.control
+    run
+    wrdata sq3_trans.txt v(1) v(2)
+.endc
+
+.end
