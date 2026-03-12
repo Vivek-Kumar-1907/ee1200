@@ -1,0 +1,15 @@
+Transient Response: Damping Ratio = 1.17
+
+Vsource 3 0 PULSE(0 5 3u 1p 1p 50u 50u)
+C1 1 0 561p
+L1 3 2 50m
+R1 2 1 22k
+
+.tran 1u 100u
+
+.control
+    run
+    gnuplot crit_trans3 v(1) v(3)
+.endc
+
+.end

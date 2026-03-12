@@ -1,0 +1,13 @@
+Frequency Response - Overdamped
+
+Vsource 3 0 AC 1
+C1 1 0 561p
+L1 3 2 50m
+R1 2 1 82k
+
+.control
+    ac dec 1000 10 10e5
+    gnuplot overdamped_freq db(v(1))
+.endc
+
+.end

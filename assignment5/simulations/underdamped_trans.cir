@@ -1,0 +1,15 @@
+Transient Response in Underdamped
+
+Vsource 3 0 PULSE(0 5 3u 1p 1p 50u 50u)
+C1 1 0 561p
+L1 3 2 50m
+R1 2 1 2.2k
+
+.tran 1u 120u
+
+.control
+    run
+    gnuplot underdamped_trans v(1) v(3)
+.endc
+
+.end
