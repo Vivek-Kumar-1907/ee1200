@@ -1,0 +1,23 @@
+UA741 1n4007 precision half-wave rectifier
+
+.include ua741.sub
+.include 1n4007.sub
+
+Vcc vcc_n 0 DC 15
+Vee vee_n 0 DC -15
+
+VIN vp 0 PULSE(-2.5 2.5 0 4.999m 4.999m 1n 10m)
+R1 vm vout 0
+R2 vout gnd 8.2k
+
+X1 vp vm vcc_n vee_n opout ua741
+D opout vout d1n4007
+
+.tran 10u 3 2.97
+
+.control
+run
+gnuplot ua741 v(vp) v(vout)
+.endc
+
+.end

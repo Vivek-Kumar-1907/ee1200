@@ -1,0 +1,26 @@
+LM741 with DC Input V1 = 2.5, V2 = 1
+
+.include lm741.lib
+
+Vcc vcc_n 0 DC 15
+Vee vee_n 0 DC 0
+
+V1 v1_n 0 DC 2.5
+V2 v2_n 0 DC 1.0
+
+R3 v2_n vm 100k
+R4 vm vout 300k
+
+R1 v1_n vp 100k
+R2 vp vee_n 100k
+
+X1 vp vm vcc_n vee_n vout LM741
+
+.tran 50us 1ms
+
+.control
+run
+gnuplot lm741dc v(v1_n) v(v2_n) v(vout)
+.endc
+
+.end

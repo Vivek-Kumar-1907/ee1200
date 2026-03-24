@@ -1,0 +1,25 @@
+UA741 integrator
+
+.include ua741.sub 
+
+Vcc vcc_n 0 DC 15
+Vee vee_n 0 DC -15
+
+Vin vin 0 SIN(0 2.5 100)
+
+R3 vin vm 8.2k
+C4 vm vout 470n
+R4 vm vout 10e5
+
+R2 vp gnd 8.2k
+
+X1 vp vm vcc_n vee_n vout ua741
+
+.tran 10u 3 2.97 
+
+.control
+run
+gnuplot ua741 v(vin) v(vout)
+.endc
+
+.end

@@ -1,0 +1,25 @@
+UA741 differentiator
+
+.include ua741.sub 
+
+Vcc vcc_n 0 DC 15
+Vee vee_n 0 DC -15
+
+Vin vin 0 SIN(0 2.5 100)
+
+C3 vin vm 470nk
+C4 vm vout 1n
+R4 vm vout 8.2k
+
+R2 vp gnd 8.2k
+
+X1 vp vm vcc_n vee_n vout ua741
+
+.tran 10u 3 2.97 
+
+.control
+run
+gnuplot ua741 v(vin) v(vout)
+.endc
+
+.end

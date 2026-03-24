@@ -1,0 +1,25 @@
+UA741 differentiator
+
+.include ua741.sub 
+
+Vcc vcc_n 0 DC 15
+Vee vee_n 0 DC -15
+
+Vin vin 0 pulse(-2.5 2.5 0 {10m-1n} {10m-1n} 1n {20m+1n})
+
+C3 vin vm 470n
+C4 vm vout 1n
+R4 vm vout 8.2k
+
+R2 vp gnd 8.2k
+
+X1 vp vm vcc_n vee_n vout ua741
+
+.tran 1m 3 2.925 
+
+.control
+run
+gnuplot ua741 v(vin) v(vout)
+.endc
+
+.end
