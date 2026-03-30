@@ -1,0 +1,75 @@
+Integrating ADC
+
+.include lm339.sub
+.include ua741.sub
+.include 7400.lib
+
+.model switch_on sw(vt = 2.5 vh = 0.2 ron=1u roff = 10e5)
+.model switch_off sw(vt = 2.5 vh = 0.2 ron=10e5 roff = 1u)
+
+Vsup psup 0 DC 15
+Vnsup nsup 0 DC -15
+Vref ref 0 DC 8
+*Vin in 0 PULSE(0 8 0 8 100m 15)
+Vin in 0 DC 3 
+Vcc high 0 DC 5
+Vee low 0 DC 0
+Vaclk aclk 0 PULSE(0 5 0 1u 1u 19.53125u 39.0625u)
+
+S1 in vct s3 0 switch_on
+Rlim s3 vct 100
+Xsample vct so psup nsup so ua741
+Ct vct gnd 10u
+
+Xunity gnd um psup nsup in2 ua741
+Ru um in 10k
+Rfu um in2 10k
+
+Vs2 s2 0 PULSE(0 5 0 1u 1u 10m 20m)
+Vs3 s3 0 PULSE(0 5 0 1u 1u 100u 20m)
+
+Ssw2 in2 a s2 0 switch_on
+Ssw2c ref a s2 0 switch_off
+
+Rint a vm 10k
+
+Cint vm vo 1u
+Rfint vm vo 10e5
+Ssw3 vm vo s3 0 switch_on
+
+Xopamp gnd vm psup nsup vo ua741
+
+Xcomp vo gnd psup nsup compo lm339
+Rcomp compo high 10k
+
+A_ADC [ s2 s3 compo high gnd aclk] [ cs2 cs3 c1 dh dl clk] my_adc
+.model my_adc adc_bridge(in_low=1.5 in_high=3.5)
+
+Xinv0 cs2 cs2i 7404
+
+Xctrl1 c1 clk countclk1 7408
+xctrl2 countclk1 cs2i countclk 7408
+
+Xinv1 cs3 cs3i 7404
+
+X_LSB countclk dh dh cs3i dh 0 0 0 0 out0 out1 out2 out3 rco1 74161
+X_MSB countclk rco1 rco1 cs3i dh 0 0 0 0 out4 out5 out6 out7 rco2 74161
+
+X_PIPO_Reg high cs3 out0 out1 out2 out3 out4 out5 out6 out7 reg_out0 reg_out1 reg_out2 reg_out3 reg_out4 reg_out5 reg_out6 reg_out7 74273
+
+A_DAC [ reg_out0 reg_out1 reg_out2 reg_out3 reg_out4 reg_out5 reg_out6 reg_out7 countclk] [ outb0 outb1 outb2 outb3 outb4 outb5 outb6 outb7 countclka] my_dac
+.model my_dac dac_bridge(out_low=0 out_high=5 t_rise=1n t_fall=1n)
+
+B_DAC val_out 0 V=(V(outb0) + 2*V(outb1) + 4*V(outb2) + 8*V(outb3) + 16*V(outb4) + 32*V(outb5) + 64*V(outb6) + 128*V(outb7))/160
+
+.options reltol=0.01 cshunt=1e-15
+
+.tran 1u 100m uic
+*.ic v(vo)=0
+
+.control
+run
+gnuplot intadc v(val_out) v(in)
+.endc
+
+.end

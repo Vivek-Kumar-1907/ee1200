@@ -1,0 +1,86 @@
+3-Bit Flash ADC
+
+.include lm339.sub
+.include 7400.lib
+
+Vref ref 0 DC 8
+Vin in 0 PULSE(0 8 0 8 100m 15)
+Vcc high 0 DC 5
+Vee low 0 DC 0
+
+R1 ref 8 1k
+R2 8 7 2k
+R3 7 6 2k
+R4 6 5 2k
+R5 5 4 2k
+R6 4 3 2k
+R7 3 2 2k
+R8 2 1 2k
+R9 1 gnd 1k
+
+X8 8 in ref gnd o8 lm339
+Rx8 o8 high 10k
+
+X7 7 in ref gnd o7 lm339
+Rx7 o7 high 10k
+
+X6 6 in ref gnd o6 lm339
+Rx6 o6 high 10k
+
+X5 5 in ref gnd o5 lm339
+Rx5 o5 high 10k
+
+X4 4 in ref gnd o4 lm339
+Rx4 o4 high 10k
+
+X3 3 in ref gnd o3 lm339
+Rx3 o3 high 10k
+
+X2 2 in ref gnd o2 lm339
+Rx2 o2 high 10k
+
+X1 1 in ref gnd o1 lm339
+Rx1 o1 high 10k
+
+A_ADC [ o8 o7 o6 o5 o4 o3 o2 o1 low ] [ a8 a7 a6 a5 a4 a3 a2 a1 digilow ] my_adc
+.model my_adc adc_bridge(in_low=1.5 in_high=3.5)
+
+Xnot7 a7 na7 7404
+Xnand7 a8 na7 b7 7400
+
+Xnot6 a6 na6 7404
+Xnand6 a7 na6 b6 7400
+
+Xnot5 a5 na5 7404
+Xnand5 a6 na5 b5 7400
+
+Xnot4 a4 na4 7404
+Xnand4 a5 na4 b4 7400
+
+Xnot3 a3 na3 7404
+Xnand3 a4 na3 b3 7400
+
+Xnot2 a2 na2 7404
+Xnand2 a3 na2 b2 7400
+
+Xnot1 a1 na1 7404
+Xnand1 a2 na1 b1 7400
+
+Xencoder digilow na1 b1 b2 b3 b4 b5 b6 b7 out1 out2 out3 gsss eoo 74148
+
+Xnotfinal1 out1 f1 7404
+Xnotfinal2 out2 f2 7404
+Xnotfinal3 out3 f3 7404
+
+A_DAC [ b7 b6 b5 b4 b3 b2 b1 na1 f1 f2 f3 ] [ outb7 outb6 outb5 outb4 outb3 outb2 outb1 outna1 outout1 outout2 outout3 ] my_dac
+.model my_dac dac_bridge(out_low=0 out_high=5 t_rise=1n t_fall=1n)
+
+.tran 0.1 8 0
+
+.control
+run
+let staircase = (v(outout1)+2*v(outout2)+4*v(outout3))/5
+gnuplot flashadc v(in) staircase
+.endc
+
+.end
